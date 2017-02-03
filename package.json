@@ -1,0 +1,22 @@
+{
+  "name": "tswithcode1",
+  "version": "1.0.0",
+  "description": "TypeScript with NPM and VSCODE",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Patrick Desjardins",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.4.0",
+    "typescript": "^2.1.5",
+    "typing": "^0.1.9"
+  },
+  "dependencies": {
+    "express": "^4.14.1",
+    "jquery": "^3.1.1",
+    "requirejs": "^2.3.2"
+  }
+}
