@@ -12,10 +12,11 @@
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^2.4.0",
     "typescript": "^2.1.5",
-    "typing": "^0.1.9"
+    "typing": "^0.1.9",
+    "tslint":"^4.4.2",
+    "express": "^4.14.1"
   },
   "dependencies": {
-    "express": "^4.14.1",
     "jquery": "^3.1.1",
     "requirejs": "^2.3.2"
   }

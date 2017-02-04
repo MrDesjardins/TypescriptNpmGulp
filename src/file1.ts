@@ -1,4 +1,7 @@
 ﻿import { ClassA } from "./fileToInclude"
 
 const a = new ClassA();
-a.method1();
+var x = 2;
+if (x == 2) {
+    a.method1();
+}

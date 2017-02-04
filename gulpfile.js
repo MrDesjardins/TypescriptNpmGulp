@@ -1,9 +1,9 @@
-var gulp = require('gulp');
-var tsc = require('gulp-typescript');
-var del = require('del');
-var sourcemaps = require('gulp-sourcemaps');
-var tsProject = tsc.createProject('tsconfig.json');
-
+const gulp = require('gulp');
+const tsc = require('gulp-typescript');
+const del = require('del');
+const sourcemaps = require('gulp-sourcemaps');
+const tsProject = tsc.createProject('tsconfig.json');
+const gulp_tslint = require('gulp-tslint');
 //--- Configurations Constants ---
 
 var paths = {
@@ -55,4 +55,11 @@ gulp.task("build", function () {
 
 gulp.task("buildall", ["clean", "copy", "build"], function (callback){
     callback();
+});
+
+
+gulp.task('tslint', () => {
+    return gulp.src(['**/*.ts', '!**/*.d.ts', '!node_modules/**'])
+      .pipe(gulp_tslint())
+      .pipe(gulp_tslint.report());
 });
