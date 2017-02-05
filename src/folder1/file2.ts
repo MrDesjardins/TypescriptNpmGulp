@@ -1,13 +1,12 @@
-import foo = require("fileToLazyLoad");
-import require = require("require");
+import foo = require("folder1/fileToLazyLoad");
 export class ClassB {
-    public method1(): void
-    {
+    public method1(): void {
         console.log("ClassB>method1");
-        setTimeout( () => {
-        require(["fileToLazyLoad"], (c: typeof foo.ClassC) => {
-                c.method1();
+        setTimeout(() => {
+            requirejs(["folder1/fileToLazyLoad"], (c: typeof foo) => {
+                const co = new c.ClassC();
+                co.method1();
             });
-        }, 5000);
+        }, 2000);
     }
 }

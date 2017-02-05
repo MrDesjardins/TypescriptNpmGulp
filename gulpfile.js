@@ -53,13 +53,13 @@ gulp.task("build", function () {
         .pipe(gulp.dest(paths.typescript_out));
 });
 
-gulp.task("buildall", ["clean", "copy", "build"], function (callback){
+gulp.task("buildall", ["clean", "copy", "build"], function (callback) {
     callback();
 });
 
 
 gulp.task('tslint', () => {
     return gulp.src(['**/*.ts', '!**/*.d.ts', '!node_modules/**'])
-      .pipe(gulp_tslint())
-      .pipe(gulp_tslint.report());
+        .pipe(gulp_tslint())
+        .pipe(gulp_tslint.report());
 });

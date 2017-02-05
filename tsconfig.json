@@ -6,11 +6,11 @@
     "outDir": "./output"
   },
   "include": [
-      "src/**/*"
+    "src/**/*"
   ],
   "exclude": [
-      "node_modules",
-      "**/*.spec.ts"
+    "node_modules",
+    "**/*.spec.ts"
   ],
   "files": [
     "typings/index.d.ts"
