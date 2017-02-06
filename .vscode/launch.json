@@ -9,9 +9,9 @@
             "request": "launch",
             "name": "Debug Gulp",
             "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
-            "stopOnEntry": true,
+            "stopOnEntry": false,
             "args": [
-              "copy"  
+              "buildsinglefile"  
             ],
             "cwd": "${workspaceRoot}/",
             "outFiles": [],

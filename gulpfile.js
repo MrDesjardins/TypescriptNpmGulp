@@ -4,6 +4,7 @@ const del = require('del');
 const sourcemaps = require('gulp-sourcemaps');
 const tsProject = tsc.createProject('tsconfig.json');
 const gulp_tslint = require('gulp-tslint');
+const gutil = require('gulp-util');
 //--- Configurations Constants ---
 
 var paths = {
@@ -58,8 +59,28 @@ gulp.task("buildall", ["clean", "copy", "build"], function (callback) {
 });
 
 
-gulp.task('tslint', () => {
+gulp.task("tslint", () => {
     return gulp.src(['**/*.ts', '!**/*.d.ts', '!node_modules/**'])
         .pipe(gulp_tslint())
         .pipe(gulp_tslint.report());
+});
+
+gulp.task("buildsinglefile", () => {
+    const arguments = process.argv;
+    const pathWithFileNameToCompile = arguments[7];
+    const pathWithoutFileNameForOutput = arguments[5].replace(arguments[3], ".").replace("\\src\\", "\\output\\");
+
+    const step1 = gulp.src(pathWithFileNameToCompile)
+        .pipe(sourcemaps.init())
+        .pipe(tsc({
+            "target": "es6",
+            "module": "amd"
+        }))
+
+    step1.pipe(gulp.dest(pathWithoutFileNameForOutput));
+
+    step1.dts.pipe(gulp.dest(pathWithoutFileNameForOutput));
+    return step1.js
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(pathWithoutFileNameForOutput));
 });
