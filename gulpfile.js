@@ -6,6 +6,8 @@ const tsProject = tsc.createProject('tsconfig.json');
 const gulp_tslint = require('gulp-tslint');
 const gutil = require('gulp-util');
 const connect = require('gulp-connect');
+const sass = require('gulp-sass');
+
 //--- Configurations Constants ---
 
 var paths = {
@@ -14,7 +16,9 @@ var paths = {
     typescript_in: "./src/",
     typescript_out: "output",
     typings: "./typings/",
-    typescript_definitions: "./typings/main/**/*.ts"
+    typescript_definitions: "./typings/main/**/*.ts",
+    scss_in: "./src/styles/**/*.scss",
+    scss_out: "./output/styles/",
 };
 paths.allTypeScript = paths.typescript_in + "**/*.ts";
 paths.modulesDestination = paths.webroot + "vendors/";
@@ -58,7 +62,7 @@ gulp.task("build", function () {
         .pipe(connect.reload());
 });
 
-gulp.task("buildall", ["clean", "copy", "build"], function (callback) {
+gulp.task("buildall", ["clean", "copy", "build", "scss"], function (callback) {
     callback();
 });
 
@@ -103,4 +107,10 @@ gulp.task('server', function() {
 
 gulp.task('go', ["server", "watch"], function() {
 
+});
+
+gulp.task("scss", function() {
+  gulp.src(paths.scss_in)
+        .pipe(sass().on("error", sass.logError))
+        .pipe(gulp.dest(paths.scss_out));
 });
