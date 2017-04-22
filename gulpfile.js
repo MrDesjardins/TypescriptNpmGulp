@@ -7,21 +7,33 @@ const gulp_tslint = require('gulp-tslint');
 const gutil = require('gulp-util');
 const connect = require('gulp-connect');
 const sass = require('gulp-sass');
+const mocha = require('gulp-mocha');
 
 //--- Configurations Constants ---
 
 var paths = {
-    webroot: "./",
+    sourceRoot: "./",
+    webroot: "./deploy/",
     node_modules: "./node_modules/",
-    typescript_in: "./src/",
-    typescript_out: "output",
     typings: "./typings/",
     typescript_definitions: "./typings/main/**/*.ts",
-    scss_in: "./src/styles/**/*.scss",
-    scss_out: "./output/styles/",
 };
+
+paths.typescript_in = paths.sourceRoot + "src/";
+paths.typescript_out = paths.webroot + "output"
+
 paths.allTypeScript = paths.typescript_in + "**/*.ts";
 paths.modulesDestination = paths.webroot + "vendors/";
+
+paths.style_in = paths.sourceRoot + "styles/";
+paths.style_out = paths.webroot + "styles/";
+
+
+
+paths.files_out = paths.webroot + "files";
+
+paths.scss_in = paths.sourceRoot + "src/styles/**/*.scss";
+paths.scss_out = paths.webroot + "styles/";
 
 //--- Task ---
 
@@ -46,7 +58,7 @@ gulp.task("copy", function () {
             .pipe(gulp.dest(paths.modulesDestination + destinationDir));
     }
 
-     gulp.src("./src/index.html").pipe(gulp.dest(paths.typescript_out));
+    gulp.src("./src/index.html").pipe(gulp.dest(paths.webroot));
 });
 
 
@@ -93,24 +105,30 @@ gulp.task("buildsinglefile", () => {
         .pipe(gulp.dest(pathWithoutFileNameForOutput));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch(paths.typescript_in + '/*.ts', ['build']);
 });
 
-gulp.task('server', function() {
-  connect.server({
-    root: 'output',
-    livereload: true,
-    port: 8080
-  });
+gulp.task('server', function () {
+    connect.server({
+        root:  paths.webroot,
+        livereload: true,
+        port: 8080
+    });
 });
 
-gulp.task('go', ["server", "watch"], function() {
+gulp.task('go', ["server", "watch"], function () {
 
 });
 
-gulp.task("scss", function() {
-  gulp.src(paths.scss_in)
+gulp.task("scss", function () {
+    gulp.src(paths.scss_in)
         .pipe(sass().on("error", sass.logError))
         .pipe(gulp.dest(paths.scss_out));
+});
+
+gulp.task("tests", function () {
+    var compilationResults = gulp.src(paths.typescript_in +"/**/*.spec.ts")
+        .pipe(tsProject("tsconfigtest.json", {module: "amd"}))
+        .pipe(gulp.dest(paths.typescript_out));
 });

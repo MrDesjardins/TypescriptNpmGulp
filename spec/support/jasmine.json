@@ -1,0 +1,12 @@
+{
+  "spec_dir": "./",
+  "spec_files": [
+    "./output/**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "./node_modules/requirejs/require.js",
+    "./requirejsconfig.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false
+}

@@ -1,4 +1,4 @@
-#TypeScript, NPM, Gulp
+# TypeScript, NPM, Gulp
 
 This repository contains minimum and very small codes that demonstrates how to simply uses Microsoft **Visual Studio Code** as an editor without having huge dependencies on big environment.
 
